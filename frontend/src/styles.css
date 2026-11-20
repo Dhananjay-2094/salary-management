@@ -172,6 +172,49 @@ h1 { margin-bottom: 0; font: 700 23px "Segoe UI", sans-serif; letter-spacing: -.
 .form-actions { display: flex; justify-content: flex-end; gap: 9px; padding-top: 5px; }
 .form-error { margin: 0; padding: 9px 10px; border: 1px solid #f0d4d4; border-radius: 7px; background: #fff8f8; color: #985151; font-size: 11px; }
 .form-hint { margin: -7px 0 0; color: #87919c; font-size: 10px; line-height: 1.5; }
+.analytics-dashboard { display: grid; gap: 21px; }
+.analytics-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.analytics-heading h2 { margin: 0 0 6px; color: #243140; font: 700 23px "Segoe UI", sans-serif; letter-spacing: -.03em; }
+.analytics-heading p { margin: 0; color: #7e8994; font-size: 11px; }
+.refresh-button { gap: 7px; }
+.refresh-button span { color: #27745e; font-size: 15px; }
+.metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; }
+.metric-card { position: relative; min-width: 0; padding: 16px 16px 14px; border: 1px solid #e6e9eb; border-radius: 11px; background: #fff; box-shadow: 0 5px 18px rgba(31, 45, 57, .02); }
+.metric-card__icon { display: grid; width: 29px; height: 29px; place-items: center; margin-bottom: 12px; border-radius: 8px; font-size: 8px; font-weight: 700; }
+.metric-card__icon--green { background: #e8f3ee; color: #2b785f; }
+.metric-card__icon--blue { background: #edf2f9; color: #58749b; }
+.metric-card__icon--gold { background: #f7f0e1; color: #a17c34; }
+.metric-card__icon--violet { background: #f0edf7; color: #7b6d9d; }
+.metric-card__label { color: #7f8995; font-size: 10px; font-weight: 600; }
+.metric-card__value { margin: 5px 0 4px; color: #253241; font: 700 23px "Segoe UI", sans-serif; letter-spacing: -.03em; }
+.metric-card__hint { overflow: hidden; color: #9aa2aa; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.analytics-panel { min-width: 0; overflow: hidden; border: 1px solid #e5e8eb; border-radius: 11px; background: #fff; box-shadow: 0 5px 20px rgba(31, 45, 57, .02); }
+.analytics-panel__heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; padding: 18px 18px 14px; }
+.analytics-panel__heading h3 { margin: 0; color: #293645; font: 700 13px "Segoe UI", sans-serif; }
+.analytics-panel__heading p { margin: 5px 0 0; color: #8a949e; font-size: 10px; line-height: 1.5; }
+.panel-badge { padding: 5px 7px; border: 1px solid #e5ece9; border-radius: 5px; color: #6d857b; font-size: 8px; font-weight: 700; letter-spacing: .08em; white-space: nowrap; }
+.analytics-table-wrap { overflow-x: auto; }
+.analytics-table { width: 100%; border-collapse: collapse; text-align: left; }
+.analytics-table th { padding: 10px 14px; border-top: 1px solid #eef0f2; border-bottom: 1px solid #e9ecef; background: #fafbfc; color: #929ba5; font-size: 9px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+.analytics-table td { padding: 12px 14px; border-bottom: 1px solid #f0f1f3; color: #626e7b; font-size: 10px; white-space: nowrap; }
+.analytics-table tbody tr:last-child td { border-bottom: 0; }
+.analytics-table tbody tr:hover { background: #fcfdfd; }
+.currency-name { display: inline-flex; align-items: center; gap: 8px; }
+.currency-square { display: grid; width: 24px; height: 24px; place-items: center; border-radius: 6px; background: #eff5f2; color: #32785f; font-size: 10px; font-weight: 700; }
+.currency-name strong { color: #3b4856; font-size: 10px; }
+.analytics-average { color: #2b5647 !important; font-weight: 700; }
+.range-separator { padding: 0 4px; color: #b4bac0; font-size: 9px; }
+.analytics-breakdowns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 14px; }
+.breakdown-panel .analytics-panel__heading { min-height: 64px; }
+.breakdown-table th, .breakdown-table td { padding-right: 10px; padding-left: 11px; }
+.currency-tag { display: inline-block; padding: 4px 6px; border-radius: 5px; background: #f1f4f5; color: #65717e; font-size: 9px; font-weight: 600; }
+.pay-group-count { display: inline-block; margin-left: 6px; color: #9aa2aa; font-size: 9px; }
+.no-salary-cell { color: #9aa2aa !important; font-size: 9px !important; }
+.analytics-empty { padding: 30px 16px; border-top: 1px solid #eff1f2; color: #8a949e; font-size: 11px; text-align: center; }
+.analytics-footnote { margin: -8px 0 0; color: #929ba5; font-size: 9px; }
+.analytics-loading, .analytics-error { display: grid; min-height: 260px; place-content: center; justify-items: center; gap: 11px; border: 1px solid #e5e8eb; border-radius: 12px; background: #fff; color: #77828e; font-size: 12px; }
+.analytics-error { border-color: #f0d7d7; background: #fffafa; color: #715555; }
+.analytics-error span { color: #9a7777; font-size: 11px; }
 
 @media (max-width: 760px) {
   .sidebar { position: static; width: auto; height: auto; padding: 14px 16px; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -209,6 +252,9 @@ h1 { margin-bottom: 0; font: 700 23px "Segoe UI", sans-serif; letter-spacing: -.
   .form-modal { padding: 18px; }
   .salary-form__grid { grid-template-columns: 1fr 1fr; }
   .salary-form__grid .form-field:first-child { grid-column: span 2; }
+  .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .analytics-breakdowns { grid-template-columns: 1fr; }
+  .analytics-dashboard { gap: 16px; }
 }
 
 @media (max-width: 480px) {
@@ -222,4 +268,15 @@ h1 { margin-bottom: 0; font: 700 23px "Segoe UI", sans-serif; letter-spacing: -.
   .salary-form__grid .form-field:first-child { grid-column: auto; }
   .modal-backdrop { align-items: start; padding: 12px; }
   .form-modal { margin: auto 0; max-height: calc(100vh - 24px); padding: 16px; }
+  .analytics-heading { align-items: flex-start; }
+  .analytics-heading h2 { font-size: 20px; }
+  .analytics-heading p { max-width: 230px; line-height: 1.5; }
+  .refresh-button { min-height: 31px; padding: 0 8px; font-size: 10px; }
+  .metric-card { padding: 12px; }
+  .metric-card__value { font-size: 20px; }
+  .metric-card__hint { font-size: 8px; }
+  .analytics-panel__heading { padding: 14px 13px 11px; }
+  .analytics-table { min-width: 530px; }
+  .breakdown-table { min-width: 440px; }
+  .analytics-footnote { line-height: 1.5; }
 }
