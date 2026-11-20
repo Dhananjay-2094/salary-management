@@ -56,6 +56,8 @@ class EmployeeUpdate(APIModel):
     def require_at_least_one_field(self) -> "EmployeeUpdate":
         if not self.model_fields_set:
             raise ValueError("at least one field must be provided")
+        if any(getattr(self, field) is None for field in self.model_fields_set):
+            raise ValueError("provided fields must not be null")
         return self
 
     @field_validator("name", "country", "department", "job_title")

@@ -5,6 +5,8 @@ from contextlib import contextmanager
 import sqlite3
 from collections.abc import Iterator
 
+from fastapi import Request
+
 DEFAULT_DATABASE_PATH = Path(__file__).resolve().parents[1] / "salary_management.sqlite3"
 
 SCHEMA = """
@@ -61,3 +63,10 @@ def initialize_database(database_path: str | Path = DEFAULT_DATABASE_PATH) -> No
     path.parent.mkdir(parents=True, exist_ok=True)
     with get_connection(path) as connection:
         connection.executescript(SCHEMA)
+
+
+def get_database_connection(request: Request) -> Iterator[sqlite3.Connection]:
+    """FastAPI dependency that opens a transaction for one API request."""
+    database_path = getattr(request.app.state, "database_path", DEFAULT_DATABASE_PATH)
+    with get_connection(database_path) as connection:
+        yield connection
