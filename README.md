@@ -49,6 +49,18 @@ Vite proxies `/health` and `/api` to the local backend at `http://127.0.0.1:8000
 Create and verify the static frontend build with `npm run build` from `frontend/`.
 Run the frontend interaction tests with `npm test` from `frontend/`.
 
+## Container deployment
+
+The root Dockerfile builds the React app and Python API into one image. Start the local demo with Docker Compose:
+
+```sh
+docker compose up --build -d
+```
+
+Open `http://localhost:8000`. The Compose setup persists SQLite in a named volume and seeds 10,000 synthetic employees only on an empty database. See [docs/deployment.md](docs/deployment.md) for host requirements, persistence, and reset behavior.
+
+The suggested walkthrough is in [docs/demo-script.md](docs/demo-script.md). Record the demo to `artifacts/demo.mp4` or link a hosted recording from this README.
+
 ## Scope
 
 This assessment demo assumes one trusted HR user and does not include authentication. Seed data is synthetic. Salary summaries keep currencies separate; the app does not perform foreign exchange conversion.
