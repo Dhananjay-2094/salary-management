@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getEmployeeFilters, getEmployees } from "../api/client.js";
+import EmployeeForm from "./EmployeeForm.jsx";
 
 const PAGE_SIZE = 25;
 
@@ -49,6 +50,7 @@ export default function EmployeeDirectory({ onOpenEmployee }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [reload, setReload] = useState(0);
+  const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setDebouncedSearch(searchText.trim()), 250);
@@ -113,9 +115,12 @@ export default function EmployeeDirectory({ onOpenEmployee }) {
           <h2 id="directory-title">Employee records</h2>
           <p>Find a colleague and review their current profile and pay.</p>
         </div>
-        <div className="directory-count">
-          <strong>{total.toLocaleString()}</strong>
-          <span>{total === 1 ? "employee" : "employees"}</span>
+        <div className="directory__actions">
+          <div className="directory-count">
+            <strong>{total.toLocaleString()}</strong>
+            <span>{total === 1 ? "employee" : "employees"}</span>
+          </div>
+          <button className="button-primary" type="button" onClick={() => setCreating(true)}>Add employee</button>
         </div>
       </div>
 
@@ -217,6 +222,25 @@ export default function EmployeeDirectory({ onOpenEmployee }) {
             </div>
           </div>
         </>
+      )}
+
+      {creating && (
+        <div className="modal-backdrop">
+          <section className="form-modal" role="dialog" aria-modal="true" aria-labelledby="create-employee-title">
+            <div className="form-modal__heading">
+              <div><div className="section-eyebrow">NEW EMPLOYEE</div><h2 id="create-employee-title">Add employee</h2></div>
+              <button className="modal-close" type="button" aria-label="Close employee form" onClick={() => setCreating(false)}>×</button>
+            </div>
+            <EmployeeForm
+              mode="create"
+              onCancel={() => setCreating(false)}
+              onSaved={async (employee) => {
+                setCreating(false);
+                onOpenEmployee(employee.id);
+              }}
+            />
+          </section>
+        </div>
       )}
     </section>
   );

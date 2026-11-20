@@ -47,7 +47,7 @@ Employees without a salary record have `latest_salary: null`. `GET /api/employee
 
 `GET /api/employees/{id}` returns the profile plus `latest_salary` (or null) and `salary_history`, ordered by effective date descending, then record ID descending. `GET /api/employees/{id}/salaries` returns that history as a list. Both return `404 Not Found` for an unknown employee.
 
-`POST /api/employees/{id}/salaries` accepts `amount_minor` (positive integer in the currency's minor unit), uppercase three-letter `currency_code`, and ISO `effective_date`. It appends a salary record and returns it with `201 Created`. Records are retained as history; the newest effective date (then highest ID) is treated as current.
+`POST /api/employees/{id}/salaries` accepts `amount_minor` (positive integer in the currency's minor unit), uppercase three-letter `currency_code`, and ISO `effective_date`. The date cannot be before the employee's hire date. It appends a salary record and returns it with `201 Created`. Records are retained as history; the newest effective date (then highest ID) is treated as current.
 
 ## Compensation analytics
 

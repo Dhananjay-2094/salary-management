@@ -88,7 +88,7 @@ def test_salary_history_and_latest_salary_are_ordered_deterministically() -> Non
             add_salary_record(
                 employee_id,
                 SalaryRecordCreate(
-                    amount_minor=7000000, currency_code="INR", effective_date="2024-01-01"
+                    amount_minor=7000000, currency_code="INR", effective_date="2024-04-01"
                 ),
                 connection,
             )
@@ -104,7 +104,7 @@ def test_salary_history_and_latest_salary_are_ordered_deterministically() -> Non
             history = get_salary_history(employee_id, connection)
 
     assert detail["latest_salary"]["amount_minor"] == 8000000
-    assert [record["effective_date"] for record in history] == ["2025-01-01", "2024-01-01"]
+    assert [record["effective_date"] for record in history] == ["2025-01-01", "2024-04-01"]
 
 
 def test_employee_update_and_missing_employee_errors() -> None:
@@ -124,6 +124,28 @@ def test_employee_update_and_missing_employee_errors() -> None:
 
     assert updated["department"] == "Finance"
     assert error.value.status_code == 404
+
+
+def test_salary_effective_date_cannot_precede_hire_date() -> None:
+    with TemporaryDirectory(dir=BACKEND_ROOT) as temp_dir:
+        database_path = Path(temp_dir) / "salary-date.sqlite3"
+        initialize_database(database_path)
+        with get_connection(database_path) as connection:
+            employee = create_employee(
+                make_employee("AC-3101", "pat@example.test", "Pat Morgan"), connection
+            )
+            with pytest.raises(HTTPException) as error:
+                add_salary_record(
+                    employee["id"],
+                    SalaryRecordCreate(
+                        amount_minor=5000000,
+                        currency_code="INR",
+                        effective_date="2024-03-14",
+                    ),
+                    connection,
+                )
+
+    assert error.value.status_code == 422
 
 
 def test_employee_routes_are_registered() -> None:

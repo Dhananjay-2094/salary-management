@@ -121,6 +121,57 @@ h1 { margin-bottom: 0; font: 700 23px "Segoe UI", sans-serif; letter-spacing: -.
 .directory-state span { color: #9a7777; font-size: 11px; }
 .directory-state button, .back-to-directory { padding: 8px 12px; border: 1px solid #dce9e4; border-radius: 7px; background: #fff; color: #28745e; cursor: pointer; font-size: 11px; font-weight: 600; }
 .back-to-directory:hover { background: #eaf4f0; }
+.directory__actions { display: flex; align-items: center; gap: 10px; }
+.button-primary, .button-secondary { display: inline-flex; min-height: 36px; align-items: center; justify-content: center; padding: 0 13px; border-radius: 7px; cursor: pointer; font: 600 11px "Segoe UI", sans-serif; white-space: nowrap; }
+.button-primary { border: 1px solid #1f725e; background: #1f725e; color: #fff; }
+.button-primary:hover { border-color: #165b4a; background: #165b4a; }
+.button-primary:disabled, .button-secondary:disabled { opacity: .55; cursor: wait; }
+.button-secondary { border: 1px solid #dfe4e7; background: #fff; color: #455261; }
+.button-secondary:hover { background: #f7f9f9; }
+.employee-detail { display: grid; gap: 20px; }
+.back-link { justify-self: start; padding: 3px 0; border: 0; background: none; color: #41816c; cursor: pointer; font-size: 11px; font-weight: 600; }
+.back-link:hover span { text-decoration: underline; }
+.employee-detail__heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-bottom: 4px; }
+.employee-detail__heading h2 { margin-bottom: 5px; font: 700 25px "Segoe UI", sans-serif; letter-spacing: -.03em; }
+.employee-detail__heading p { margin-bottom: 0; color: #78838f; font-size: 11px; }
+.employee-detail__heading p span { margin: 0 4px; color: #bac0c6; }
+.detail-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, .7fr); gap: 16px; }
+.detail-card { min-width: 0; padding: 20px; border: 1px solid #e5e8eb; border-radius: 11px; background: #fff; box-shadow: 0 5px 20px rgba(31, 45, 57, .02); }
+.detail-card__heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 17px; }
+.detail-card__heading h3 { margin: 0; color: #293645; font: 700 13px "Segoe UI", sans-serif; }
+.detail-card__heading p { margin: 5px 0 0; color: #8a949e; font-size: 10px; }
+.profile-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; row-gap: 17px; margin: 0; }
+.profile-list div { min-width: 0; }
+.profile-list dt { margin-bottom: 5px; color: #949da7; font-size: 9px; font-weight: 600; }
+.profile-list dd { overflow-wrap: anywhere; margin: 0; color: #364352; font-size: 11px; font-weight: 600; }
+.status-pill, .current-tag { padding: 5px 8px; border-radius: 999px; background: #eaf4f0; color: #33765f; font-size: 9px; font-weight: 600; white-space: nowrap; }
+.current-salary { margin: 18px 0 5px; color: #1d624f; font: 700 27px "Segoe UI", sans-serif; letter-spacing: -.025em; }
+.salary-summary-card > p { margin: 0 0 20px; color: #8a949e; font-size: 10px; }
+.history-card { padding-bottom: 8px; }
+.history-count { color: #929ba5; font-size: 10px; white-space: nowrap; }
+.history-table-wrap { overflow-x: auto; }
+.history-table { width: 100%; border-collapse: collapse; text-align: left; }
+.history-table th { padding: 10px 9px; border-bottom: 1px solid #e9ecef; color: #929ba5; font-size: 9px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+.history-table td { padding: 13px 9px; border-bottom: 1px solid #f0f1f3; color: #586473; font-size: 10px; white-space: nowrap; }
+.history-table tbody tr:last-child td { border-bottom: 0; }
+.currency-tag { padding: 4px 6px; border-radius: 5px; background: #f3f5f6; color: #65717e; font-size: 9px; font-weight: 600; }
+.history-empty { padding: 28px 10px; border-top: 1px solid #eff1f2; color: #8a949e; font-size: 11px; text-align: center; }
+.modal-backdrop { position: fixed; z-index: 10; inset: 0; display: grid; place-items: center; overflow-y: auto; padding: 24px; background: rgba(24, 34, 48, .42); }
+.form-modal { width: min(100%, 650px); max-height: min(90vh, 780px); overflow-y: auto; padding: 24px; border: 1px solid #e6e9eb; border-radius: 14px; background: #fff; box-shadow: 0 24px 80px rgba(17, 31, 41, .22); }
+.form-modal__heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; margin-bottom: 20px; }
+.form-modal__heading h2 { margin: 0; font: 700 20px "Segoe UI", sans-serif; }
+.modal-close { display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid #e5e8eb; border-radius: 7px; background: #fff; color: #697582; cursor: pointer; font-size: 20px; line-height: 1; }
+.modal-close:hover { background: #f7f8f9; }
+.form-stack { display: grid; gap: 16px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.salary-form__grid { display: grid; grid-template-columns: 1.2fr .65fr 1fr; gap: 12px; }
+.form-field { display: grid; min-width: 0; gap: 6px; color: #65717e; font-size: 10px; font-weight: 600; }
+.form-field input { width: 100%; min-width: 0; height: 38px; padding: 0 10px; border: 1px solid #e0e5e8; border-radius: 7px; outline: 0; background: #fff; color: #293645; font: 500 11px "Segoe UI", sans-serif; }
+.form-field input:focus { border-color: #78ae9c; box-shadow: 0 0 0 3px rgba(55, 135, 108, .1); }
+.form-field input::placeholder { color: #adb4bc; }
+.form-actions { display: flex; justify-content: flex-end; gap: 9px; padding-top: 5px; }
+.form-error { margin: 0; padding: 9px 10px; border: 1px solid #f0d4d4; border-radius: 7px; background: #fff8f8; color: #985151; font-size: 11px; }
+.form-hint { margin: -7px 0 0; color: #87919c; font-size: 10px; line-height: 1.5; }
 
 @media (max-width: 760px) {
   .sidebar { position: static; width: auto; height: auto; padding: 14px 16px; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -149,4 +200,26 @@ h1 { margin-bottom: 0; font: 700 23px "Segoe UI", sans-serif; letter-spacing: -.
   .employee-table { min-width: 790px; }
   .table-footer { min-height: 48px; padding: 0 10px; font-size: 9px; }
   .pagination { gap: 5px; }
+  .directory__actions { align-items: flex-end; flex-direction: column-reverse; gap: 7px; }
+  .directory__actions .button-primary { min-height: 32px; padding: 0 9px; font-size: 10px; }
+  .detail-grid { grid-template-columns: 1fr; }
+  .detail-card { padding: 16px; }
+  .profile-list { column-gap: 12px; }
+  .employee-detail__heading h2 { font-size: 22px; }
+  .form-modal { padding: 18px; }
+  .salary-form__grid { grid-template-columns: 1fr 1fr; }
+  .salary-form__grid .form-field:first-child { grid-column: span 2; }
+}
+
+@media (max-width: 480px) {
+  .directory-count { padding: 6px 8px; }
+  .directory-count strong { font-size: 15px; }
+  .directory-count span { font-size: 8px; }
+  .employee-detail__heading { align-items: flex-start; }
+  .employee-detail__heading .button-secondary { min-height: 31px; padding: 0 8px; font-size: 10px; }
+  .profile-list { grid-template-columns: 1fr; row-gap: 13px; }
+  .form-grid, .salary-form__grid { grid-template-columns: 1fr; }
+  .salary-form__grid .form-field:first-child { grid-column: auto; }
+  .modal-backdrop { align-items: start; padding: 12px; }
+  .form-modal { margin: auto 0; max-height: calc(100vh - 24px); padding: 16px; }
 }

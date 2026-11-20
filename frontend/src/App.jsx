@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getHealth } from "./api/client.js";
 import EmployeeDirectory from "./components/EmployeeDirectory.jsx";
+import EmployeeDetails from "./components/EmployeeDetails.jsx";
 
 const navigation = [
   { id: "overview", label: "Overview", marker: "OV" },
@@ -43,17 +44,6 @@ function OverviewPage() {
         <span className="note-icon" aria-hidden="true">i</span>
         <span>Salary summaries will always keep currencies separate.</span>
       </div>
-    </section>
-  );
-}
-
-function EmployeeDetailPlaceholder({ employeeId, onBack }) {
-  return (
-    <section className="empty-panel">
-      <div className="empty-panel__icon" aria-hidden="true">EM</div>
-      <h2>Employee profile</h2>
-      <p>Employee #{employeeId} selected. Profile and salary history details are coming next.</p>
-      <button className="back-to-directory" type="button" onClick={onBack}>Back to employees</button>
     </section>
   );
 }
@@ -121,7 +111,7 @@ export default function App() {
             />
           )}
           {activePage === "employee" && (
-            <EmployeeDetailPlaceholder
+            <EmployeeDetails
               employeeId={selectedEmployeeId}
               onBack={() => setActivePage("employees")}
             />

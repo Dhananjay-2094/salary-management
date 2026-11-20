@@ -219,7 +219,12 @@ def add_salary_record(
     connection: Database,
 ) -> dict[str, object]:
     """Append an effective-dated salary record for an employee."""
-    _require_employee(connection, employee_id)
+    employee = _require_employee(connection, employee_id)
+    if payload.effective_date.isoformat() < employee["hire_date"]:
+        raise HTTPException(
+            status_code=422,
+            detail="Salary effective date cannot be before the employee hire date",
+        )
     cursor = connection.execute(
         "INSERT INTO salary_records (employee_id, amount_minor, currency_code, effective_date) "
         "VALUES (?, ?, ?, ?)",

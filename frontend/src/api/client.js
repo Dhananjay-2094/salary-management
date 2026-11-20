@@ -49,3 +49,24 @@ export function getEmployeeFilters(options) {
 export function getEmployee(employeeId, options) {
   return request(`/api/employees/${encodeURIComponent(employeeId)}`, options);
 }
+
+export function createEmployee(employee) {
+  return request("/api/employees", {
+    method: "POST",
+    body: JSON.stringify(employee),
+  });
+}
+
+export function updateEmployee(employeeId, changes) {
+  return request(`/api/employees/${encodeURIComponent(employeeId)}`, {
+    method: "PATCH",
+    body: JSON.stringify(changes),
+  });
+}
+
+export function addSalaryRecord(employeeId, salary) {
+  return request(`/api/employees/${encodeURIComponent(employeeId)}/salaries`, {
+    method: "POST",
+    body: JSON.stringify(salary),
+  });
+}
