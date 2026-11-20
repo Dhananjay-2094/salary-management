@@ -28,7 +28,15 @@ Run backend tests from the `backend/` directory:
 python -m pytest
 ```
 
-Frontend setup and database/seed commands will be documented as those steps are implemented.
+Initialize the database and seed the 10,000 synthetic employees with one command from the `backend/` directory:
+
+```powershell
+python -m scripts.seed
+```
+
+The seed command refuses to overwrite existing employees. To intentionally replace the local dataset, run `python -m scripts.seed --reset`. Use `--database path/to/file.sqlite3` to target another SQLite file.
+
+Frontend setup commands will be documented as the UI is implemented.
 
 ## Scope
 
