@@ -1,0 +1,93 @@
+:root {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #182230;
+  background: #f5f6f8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  --ink: #182230;
+  --muted: #7b8491;
+  --line: #e8eaee;
+  --green: #20785f;
+  --green-soft: #e7f3ef;
+}
+
+* { box-sizing: border-box; }
+body { min-width: 320px; min-height: 100vh; margin: 0; }
+button, a { font: inherit; }
+button:focus-visible, a:focus-visible { outline: 3px solid #80bca9; outline-offset: 3px; }
+
+.app-shell { min-height: 100vh; }
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  display: flex;
+  width: 252px;
+  flex-direction: column;
+  padding: 28px 17px 18px;
+  background: #fff;
+  border-right: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 11px; padding: 0 8px; color: inherit; text-decoration: none; }
+.brand__mark { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 12px; background: #1f725e; color: #fff; font: 800 20px "Segoe UI", sans-serif; }
+.brand__copy { display: grid; gap: 2px; }
+.brand__copy strong { font: 800 15px "Segoe UI", sans-serif; letter-spacing: .08em; }
+.brand__copy small { color: #98a09f; font-size: 9px; font-weight: 700; letter-spacing: .16em; }
+.sidebar__section-label { margin: 49px 11px 12px; color: #9ba3ae; font-size: 10px; font-weight: 700; letter-spacing: .14em; }
+.navigation { display: grid; gap: 5px; }
+.navigation__item { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 11px; border: 0; border-radius: 9px; background: transparent; color: #677280; cursor: pointer; font-size: 13px; font-weight: 600; text-align: left; }
+.navigation__item:hover { background: #f6f8f8; color: var(--ink); }
+.navigation__item.is-active { background: var(--green-soft); color: #1e6d58; }
+.navigation__marker { display: grid; width: 23px; height: 23px; place-items: center; border: 1px solid #e3e7e8; border-radius: 7px; color: #8a9697; font-size: 8px; font-weight: 700; }
+.is-active .navigation__marker { border-color: #c6e1d8; color: #1e6d58; }
+.sidebar__bottom { display: flex; align-items: center; gap: 10px; margin-top: auto; padding: 14px 7px 3px; border-top: 1px solid var(--line); }
+.user-avatar { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: #e7eaf0; color: #5e6877; font-size: 10px; font-weight: 700; }
+.user-copy { display: grid; gap: 3px; }
+.user-copy strong { font-size: 11px; }
+.user-copy span { color: var(--muted); font-size: 10px; }
+
+.main-content { min-height: 100vh; margin-left: 252px; }
+.topbar { display: flex; min-height: 112px; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 44px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.78); }
+.breadcrumb { margin-bottom: 7px; color: #929aa5; font-size: 11px; }
+.breadcrumb span { margin: 0 6px; color: #c3c8cf; }
+h1, h2, p { margin-top: 0; }
+h1 { margin-bottom: 0; font: 700 23px "Segoe UI", sans-serif; letter-spacing: -.03em; }
+.connection { display: inline-flex; align-items: center; gap: 8px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: #606b78; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.connection__dot { width: 7px; height: 7px; border-radius: 50%; background: #d5a64e; }
+.connection--online .connection__dot { background: #3e9a77; box-shadow: 0 0 0 3px #e5f3ed; }
+.connection--offline .connection__dot { background: #c65b5b; box-shadow: 0 0 0 3px #f8e9e9; }
+.page-content { max-width: 1160px; min-height: calc(100vh - 170px); margin: 0 auto; padding: 42px 44px; }
+.welcome-panel { position: relative; overflow: hidden; max-width: 900px; min-height: 310px; padding: 48px 52px; border: 1px solid #e2e8e5; border-radius: 18px; background: linear-gradient(115deg, #fff 0%, #fff 54%, #edf5f1 100%); box-shadow: 0 12px 40px rgba(31, 62, 51, .035); }
+.welcome-panel::after { position: absolute; top: -100px; right: -35px; width: 340px; height: 480px; border: 1px solid rgba(54, 128, 101, .12); border-radius: 50%; content: ""; transform: rotate(36deg); }
+.welcome-panel__eyebrow { margin-bottom: 22px; color: #39836d; font-size: 10px; font-weight: 700; letter-spacing: .17em; }
+.welcome-panel h2 { max-width: 520px; margin-bottom: 13px; font: 700 35px/1.2 "Segoe UI", sans-serif; letter-spacing: -.045em; }
+.welcome-panel p { max-width: 530px; margin-bottom: 32px; color: #76808c; font-size: 14px; line-height: 1.75; }
+.welcome-panel__note { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; color: #597369; font-size: 11px; font-weight: 500; }
+.note-icon { display: grid; width: 18px; height: 18px; place-items: center; border: 1px solid #bad7cc; border-radius: 50%; color: #348066; font-size: 11px; font-weight: 700; }
+.empty-panel { display: grid; min-height: 360px; place-content: center; justify-items: center; border: 1px dashed #d9dfe3; border-radius: 16px; background: rgba(255,255,255,.62); text-align: center; }
+.empty-panel__icon { display: grid; width: 50px; height: 50px; place-items: center; margin-bottom: 17px; border-radius: 14px; background: #eaf3ef; color: #28745f; font-size: 12px; font-weight: 700; }
+.empty-panel h2 { margin-bottom: 8px; font: 700 19px "Segoe UI", sans-serif; }
+.empty-panel p { margin-bottom: 18px; color: var(--muted); font-size: 13px; }
+.coming-soon { color: #87918e; font-size: 10px; }
+.page-footer { padding: 16px 44px 24px; color: #9aa1aa; font-size: 10px; }
+.page-footer span { margin: 0 5px; color: #c3c8cf; }
+
+@media (max-width: 760px) {
+  .sidebar { position: static; width: auto; height: auto; padding: 14px 16px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .sidebar__section-label, .sidebar__bottom { display: none; }
+  .brand { margin-bottom: 14px; }
+  .navigation { display: flex; gap: 7px; }
+  .navigation__item { min-height: 38px; padding: 0 9px; }
+  .navigation__marker { width: 20px; height: 20px; }
+  .main-content { margin-left: 0; }
+  .topbar { min-height: 89px; padding: 17px 20px; }
+  .connection { padding: 7px 9px; font-size: 10px; }
+  .page-content { min-height: calc(100vh - 180px); padding: 24px 16px; }
+  .welcome-panel { min-height: 290px; padding: 32px 25px; }
+  .welcome-panel h2 { font-size: 29px; }
+  .welcome-panel::after { right: -210px; }
+  .page-footer { padding: 12px 20px 20px; }
+}

@@ -36,7 +36,17 @@ python -m scripts.seed
 
 The seed command refuses to overwrite existing employees. To intentionally replace the local dataset, run `python -m scripts.seed --reset`. Use `--database path/to/file.sqlite3` to target another SQLite file.
 
-Frontend setup commands will be documented as the UI is implemented.
+Start the React/Vite frontend in another terminal:
+
+```powershell
+cd frontend
+npm ci
+npm run dev
+```
+
+Vite proxies `/health` and `/api` to the local backend at `http://127.0.0.1:8000`. Set `VITE_API_BASE_URL` in `frontend/.env` to use a separately hosted API; see `frontend/.env.example`.
+
+Create and verify the static frontend build with `npm run build` from `frontend/`.
 
 ## Scope
 
