@@ -19,7 +19,14 @@ All query parameters are optional. Search checks employee name, email, and emplo
       "country": "India",
       "department": "Engineering",
       "job_title": "Software Engineer",
-      "hire_date": "2024-03-15"
+      "hire_date": "2024-03-15",
+      "latest_salary": {
+        "id": 14,
+        "employee_id": 1,
+        "amount_minor": 8250000,
+        "currency_code": "INR",
+        "effective_date": "2025-04-01"
+      }
     }
   ],
   "page": 1,
@@ -27,6 +34,8 @@ All query parameters are optional. Search checks employee name, email, and emplo
   "total": 1
 }
 ```
+
+Employees without a salary record have `latest_salary: null`. `GET /api/employees/filters` returns distinct `countries` and `departments` for filter controls.
 
 ## Create and update employee
 

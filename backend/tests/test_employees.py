@@ -12,6 +12,7 @@ from app.employees import (
     add_salary_record,
     create_employee,
     get_employee,
+    get_employee_filters,
     get_salary_history,
     list_employees,
     update_employee,
@@ -40,7 +41,14 @@ def test_employee_create_search_filter_and_pagination() -> None:
         initialize_database(database_path)
         with get_connection(database_path) as connection:
             create_employee(make_employee("AC-1001", "jordan@example.test", "Jordan Lee"), connection)
-            create_employee(make_employee("AC-1002", "sam@example.test", "Sam Patel"), connection)
+            second = create_employee(make_employee("AC-1002", "sam@example.test", "Sam Patel"), connection)
+            add_salary_record(
+                second["id"],
+                SalaryRecordCreate(
+                    amount_minor=7500000, currency_code="INR", effective_date="2025-01-01"
+                ),
+                connection,
+            )
 
             result = list_employees(
                 connection=connection,
@@ -54,6 +62,18 @@ def test_employee_create_search_filter_and_pagination() -> None:
     assert result["total"] == 2
     assert result["page"] == 2
     assert result["items"][0]["employee_number"] == "AC-1002"
+    assert result["items"][0]["latest_salary"]["currency_code"] == "INR"
+
+
+def test_filter_options_reflect_distinct_employee_values() -> None:
+    with TemporaryDirectory(dir=BACKEND_ROOT) as temp_dir:
+        database_path = Path(temp_dir) / "filters.sqlite3"
+        initialize_database(database_path)
+        with get_connection(database_path) as connection:
+            create_employee(make_employee("AC-1101", "lee@example.test", "Lee Park"), connection)
+            filters = get_employee_filters(connection)
+
+    assert filters == {"countries": ["India"], "departments": ["Engineering"]}
 
 
 def test_salary_history_and_latest_salary_are_ordered_deterministically() -> None:
@@ -110,5 +130,6 @@ def test_employee_routes_are_registered() -> None:
     paths = app.openapi()["paths"]
 
     assert {"get", "post"}.issubset(paths["/api/employees"])
+    assert "get" in paths["/api/employees/filters"]
     assert {"get", "patch"}.issubset(paths["/api/employees/{employee_id}"])
     assert {"get", "post"}.issubset(paths["/api/employees/{employee_id}/salaries"])

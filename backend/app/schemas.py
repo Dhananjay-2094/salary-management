@@ -113,11 +113,20 @@ class EmployeeDetailResponse(EmployeeResponse):
     salary_history: list[SalaryRecordResponse]
 
 
+class EmployeeListItem(EmployeeResponse):
+    latest_salary: SalaryRecordResponse | None
+
+
 class EmployeeListResponse(APIModel):
-    items: list[EmployeeResponse]
+    items: list[EmployeeListItem]
     page: int = Field(ge=1)
     page_size: int = Field(ge=1, le=100)
     total: int = Field(ge=0)
+
+
+class EmployeeFiltersResponse(APIModel):
+    countries: list[str]
+    departments: list[str]
 
 
 class HeadcountByCountry(APIModel):

@@ -9,6 +9,7 @@ from app.database import get_database_connection
 from app.schemas import (
     EmployeeCreate,
     EmployeeDetailResponse,
+    EmployeeFiltersResponse,
     EmployeeListResponse,
     EmployeeResponse,
     EmployeeUpdate,
@@ -22,6 +23,25 @@ Database = Annotated[sqlite3.Connection, Depends(get_database_connection)]
 
 def _employee_dict(row: sqlite3.Row) -> dict[str, object]:
     return {key: row[key] for key in row.keys()}
+
+
+def _directory_item(row: sqlite3.Row) -> dict[str, object]:
+    item = {
+        key: row[key]
+        for key in (
+            "id", "employee_number", "name", "email", "country", "department", "job_title", "hire_date"
+        )
+    }
+    item["latest_salary"] = None
+    if row["latest_salary_id"] is not None:
+        item["latest_salary"] = {
+            "id": row["latest_salary_id"],
+            "employee_id": row["id"],
+            "amount_minor": row["latest_amount_minor"],
+            "currency_code": row["latest_currency_code"],
+            "effective_date": row["latest_effective_date"],
+        }
+    return item
 
 
 @router.get("", response_model=EmployeeListResponse)
@@ -56,16 +76,42 @@ def list_employees(
     ).fetchone()[0]
     offset = (page - 1) * page_size
     rows = connection.execute(
-        "SELECT id, employee_number, name, email, country, department, job_title, hire_date "
-        f"FROM employees{where_clause} "
-        "ORDER BY name COLLATE NOCASE, id LIMIT ? OFFSET ?",
+        "WITH current_salary AS ("
+        " SELECT id, employee_id, amount_minor, currency_code, effective_date FROM ("
+        "  SELECT id, employee_id, amount_minor, currency_code, effective_date, "
+        "  ROW_NUMBER() OVER (PARTITION BY employee_id ORDER BY effective_date DESC, id DESC) "
+        "  AS record_rank FROM salary_records"
+        " ) WHERE record_rank = 1"
+        ") "
+        "SELECT e.id, e.employee_number, e.name, e.email, e.country, e.department, "
+        "e.job_title, e.hire_date, cs.id AS latest_salary_id, "
+        "cs.amount_minor AS latest_amount_minor, cs.currency_code AS latest_currency_code, "
+        "cs.effective_date AS latest_effective_date "
+        "FROM employees e LEFT JOIN current_salary cs ON cs.employee_id = e.id "
+        f"{where_clause} "
+        "ORDER BY e.name COLLATE NOCASE, e.id LIMIT ? OFFSET ?",
         [*parameters, page_size, offset],
     ).fetchall()
     return {
-        "items": [_employee_dict(row) for row in rows],
+        "items": [_directory_item(row) for row in rows],
         "page": page,
         "page_size": page_size,
         "total": total,
+    }
+
+
+@router.get("/filters", response_model=EmployeeFiltersResponse)
+def get_employee_filters(connection: Database) -> dict[str, list[str]]:
+    """Return available country and department filter values."""
+    countries = connection.execute(
+        "SELECT DISTINCT country FROM employees ORDER BY country COLLATE NOCASE"
+    ).fetchall()
+    departments = connection.execute(
+        "SELECT DISTINCT department FROM employees ORDER BY department COLLATE NOCASE"
+    ).fetchall()
+    return {
+        "countries": [row[0] for row in countries],
+        "departments": [row[0] for row in departments],
     }
 
 

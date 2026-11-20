@@ -41,3 +41,11 @@ export function getEmployees(params = {}, options) {
   const suffix = query.size > 0 ? `?${query.toString()}` : "";
   return request(`/api/employees${suffix}`, options);
 }
+
+export function getEmployeeFilters(options) {
+  return request("/api/employees/filters", options);
+}
+
+export function getEmployee(employeeId, options) {
+  return request(`/api/employees/${encodeURIComponent(employeeId)}`, options);
+}
