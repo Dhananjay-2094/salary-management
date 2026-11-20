@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS employees (
 CREATE TABLE IF NOT EXISTS salary_records (
     id INTEGER PRIMARY KEY,
     employee_id INTEGER NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
-    amount_minor INTEGER NOT NULL CHECK (amount_minor > 0),
+    amount_minor INTEGER NOT NULL CHECK (amount_minor > 0 AND amount_minor <= 1000000000000),
     currency_code TEXT NOT NULL CHECK (
         length(currency_code) = 3 AND currency_code = upper(currency_code)
     ),

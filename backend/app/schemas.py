@@ -84,7 +84,7 @@ class EmployeeUpdate(APIModel):
 class SalaryRecordCreate(APIModel):
     """Salary amount is expressed in the currency's minor unit (e.g. cents)."""
 
-    amount_minor: int = Field(gt=0, le=10**15)
+    amount_minor: int = Field(gt=0, le=10**12)
     currency_code: str = Field(pattern=r"^[A-Z]{3}$")
     effective_date: date
 
@@ -118,3 +118,48 @@ class EmployeeListResponse(APIModel):
     page: int = Field(ge=1)
     page_size: int = Field(ge=1, le=100)
     total: int = Field(ge=0)
+
+
+class HeadcountByCountry(APIModel):
+    country: str
+    employee_count: int = Field(ge=0)
+
+
+class HeadcountByDepartment(APIModel):
+    department: str
+    employee_count: int = Field(ge=0)
+
+
+class CompensationByCurrency(APIModel):
+    currency_code: str
+    employee_count: int = Field(ge=0)
+    average_salary_minor: int = Field(ge=0)
+    minimum_salary_minor: int = Field(ge=0)
+    maximum_salary_minor: int = Field(ge=0)
+
+
+class CompensationByCountry(APIModel):
+    country: str
+    currency_code: str
+    employee_count: int = Field(ge=0)
+    average_salary_minor: int = Field(ge=0)
+    minimum_salary_minor: int = Field(ge=0)
+    maximum_salary_minor: int = Field(ge=0)
+
+
+class CompensationByDepartment(APIModel):
+    department: str
+    currency_code: str
+    employee_count: int = Field(ge=0)
+    average_salary_minor: int = Field(ge=0)
+    minimum_salary_minor: int = Field(ge=0)
+    maximum_salary_minor: int = Field(ge=0)
+
+
+class AnalyticsSummaryResponse(APIModel):
+    headcount: int = Field(ge=0)
+    headcount_by_country: list[HeadcountByCountry]
+    headcount_by_department: list[HeadcountByDepartment]
+    compensation_by_currency: list[CompensationByCurrency]
+    compensation_by_country: list[CompensationByCountry]
+    compensation_by_department: list[CompensationByDepartment]

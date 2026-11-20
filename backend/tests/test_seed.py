@@ -6,6 +6,7 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
+from app.analytics import get_analytics_summary
 from app.database import get_connection
 from scripts.seed import EMPLOYEE_COUNT, seed_database
 
@@ -47,12 +48,17 @@ def test_seed_creates_ten_thousand_reproducible_employees_and_salary_history() -
                 "SELECT COUNT(*) FROM salary_records s JOIN employees e ON e.id = s.employee_id "
                 "WHERE s.effective_date < e.hire_date"
             ).fetchone()[0]
+            analytics = get_analytics_summary(connection)
 
         assert employee_count == EMPLOYEE_COUNT
         assert salary_count == result.salary_records
         assert country_count == 10
         assert currency_count >= 9
         assert invalid_salary_dates == 0
+        assert analytics["headcount"] == EMPLOYEE_COUNT
+        assert sum(
+            group["employee_count"] for group in analytics["compensation_by_currency"]
+        ) == EMPLOYEE_COUNT
 
         with pytest.raises(ValueError, match="use --reset"):
             seed_database(database_path, seed=12345)

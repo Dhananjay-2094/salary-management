@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.database import DEFAULT_DATABASE_PATH, initialize_database
+from app.analytics import router as analytics_router
 from app.employees import router as employees_router
 
 
@@ -22,6 +23,7 @@ app = FastAPI(
 )
 app.state.database_path = DEFAULT_DATABASE_PATH
 app.include_router(employees_router)
+app.include_router(analytics_router)
 
 
 @app.get("/health", tags=["health"])
