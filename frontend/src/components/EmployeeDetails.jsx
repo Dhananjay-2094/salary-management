@@ -45,7 +45,7 @@ function initialEffectiveDate(minimumDate) {
   return minimumDate && minimumDate > today ? minimumDate : today;
 }
 
-function SalaryForm({ employeeId, minimumDate, onSaved, onCancel }) {
+export function SalaryForm({ employeeId, minimumDate, onSaved, onCancel }) {
   const [amount, setAmount] = useState("");
   const [currency, setCurrency] = useState("USD");
   const [effectiveDate, setEffectiveDate] = useState(() => initialEffectiveDate(minimumDate));

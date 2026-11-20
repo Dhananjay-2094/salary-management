@@ -47,6 +47,7 @@ npm run dev
 Vite proxies `/health` and `/api` to the local backend at `http://127.0.0.1:8000`. Set `VITE_API_BASE_URL` in `frontend/.env` to use a separately hosted API; see `frontend/.env.example`.
 
 Create and verify the static frontend build with `npm run build` from `frontend/`.
+Run the frontend interaction tests with `npm test` from `frontend/`.
 
 ## Scope
 
