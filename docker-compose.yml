@@ -1,0 +1,25 @@
+services:
+  salary-management:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      DATABASE_PATH: /data/salary_management.sqlite3
+      FRONTEND_DIST: /app/frontend-dist
+      SEED_DEMO_DATA: "true"
+    volumes:
+      - salary-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  salary-data:

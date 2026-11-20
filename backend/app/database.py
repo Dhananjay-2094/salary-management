@@ -4,10 +4,16 @@ from pathlib import Path
 from contextlib import contextmanager
 import sqlite3
 from collections.abc import Iterator
+import os
 
 from fastapi import Request
 
-DEFAULT_DATABASE_PATH = Path(__file__).resolve().parents[1] / "salary_management.sqlite3"
+DEFAULT_DATABASE_PATH = Path(
+    os.environ.get(
+        "DATABASE_PATH",
+        str(Path(__file__).resolve().parents[1] / "salary_management.sqlite3"),
+    )
+).resolve()
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS employees (
